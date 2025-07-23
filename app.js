@@ -12,6 +12,7 @@ app.use(express.json());
 
 app.use("/api/users", userRoutes);
 app.use("/api/test", testRoutes);
+app.use("/api/payment", require('./routes/cashfreePayment'));
 
 
 const PORT = process.env.PORT || 5000;
