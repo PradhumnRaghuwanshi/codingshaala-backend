@@ -44,7 +44,7 @@ const bookingSchema = new mongoose.Schema(
             method: String,
             paidAt: Date
         },
-        notes: {
+        message: {
             type: String
         }
     },
