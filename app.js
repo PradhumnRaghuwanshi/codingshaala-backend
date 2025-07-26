@@ -12,6 +12,7 @@ app.use(express.json());
 
 app.use("/api/users", userRoutes);
 app.use("/api/test", testRoutes);
+app.use("/api/booking", require('./routes/bookingRoutes'));
 app.use("/api/payment", require('./routes/cashfreePayment'));
 
 
