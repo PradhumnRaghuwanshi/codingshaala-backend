@@ -2,15 +2,15 @@ import mongoose from "mongoose";
 
 const bookingSchema = new mongoose.Schema(
     {
-        studentName: {
+        name: {
             type: String,
             required: true
         },
-        studentEmail: {
+        email: {
             type: String,
             required: true
         },
-        contactNumber: {
+        number: {
             type: String,
             required: true
         },

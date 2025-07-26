@@ -5,7 +5,6 @@ const router = express.Router();
 // Create a new booking
 router.post("/", async (req, res) => {
   try {
-    
     const booking = new Booking(req.body);
     const savedBooking = await booking.save();
     res.status(201).json(savedBooking);
