@@ -1,5 +1,5 @@
-import express from "express";
-import Booking from "../models/Booking";
+const Booking = require("../models/Booking");
+const express = require("express")
 const router = express.Router();
 
 // Create a new booking
@@ -16,7 +16,7 @@ router.post("/", async (req, res) => {
 // Get all bookings
 router.get("/", async (req, res) => {
   try {
-    const bookings = await Booking.find().populate("student").populate("course");
+    const bookings = await Booking.find();
     res.json(bookings);
   } catch (error) {
     res.status(500).json({ message: "Failed to fetch bookings", error });
@@ -26,7 +26,7 @@ router.get("/", async (req, res) => {
 // Get booking by ID
 router.get("/:id", async (req, res) => {
   try {
-    const booking = await Booking.findById(req.params.id).populate("student").populate("course");
+    const booking = await Booking.findById(req.params.id);
     if (!booking) return res.status(404).json({ message: "Booking not found" });
     res.json(booking);
   } catch (error) {
@@ -37,7 +37,7 @@ router.get("/:id", async (req, res) => {
 // Get bookings by student ID
 router.get("/student/:studentId", async (req, res) => {
   try {
-    const bookings = await Booking.find({ student: req.params.studentId }).populate("course");
+    const bookings = await Booking.find({ student: req.params.studentId });
     res.json(bookings);
   } catch (error) {
     res.status(500).json({ message: "Error fetching student bookings", error });
