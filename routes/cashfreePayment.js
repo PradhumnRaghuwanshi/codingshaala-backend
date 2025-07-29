@@ -2,7 +2,7 @@ const express = require("express");
 const  axios  = require("axios");
 const { Cashfree, CFEnvironment } = require("cashfree-pg"); 
 
-const cashfree = new Cashfree(CFEnvironment.SANDBOX, process.env.CASHFREE_CLIENT_ID, process.env.CASHFREE_CLIENT_SECRET);
+const cashfree = new Cashfree(CFEnvironment.PRODUCTION, process.env.CASHFREE_CLIENT_ID, process.env.CASHFREE_CLIENT_SECRET);
 
 const router = express.Router();
 router.post("/create-order", async (req, res) => {
