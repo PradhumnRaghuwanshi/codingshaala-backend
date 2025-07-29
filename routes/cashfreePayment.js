@@ -48,7 +48,7 @@ router.get('/verify-order/:id', async(req, res)=>{
             {
                 headers: {
                     "Content-Type": "application/json",
-                    "x-api-version": "2023-08-01",
+                    "x-api-version": "2025-01-01",
                     "x-client-id": process.env.CASHFREE_CLIENT_ID,
                     "x-client-secret": process.env.CASHFREE_CLIENT_SECRET,
                 },
