@@ -1,6 +1,7 @@
 const express = require("express");
 const  axios  = require("axios");
 const { Cashfree, CFEnvironment } = require("cashfree-pg"); 
+const User = require("../models/User");
 
 const cashfree = new Cashfree(CFEnvironment.PRODUCTION, process.env.CASHFREE_CLIENT_ID, process.env.CASHFREE_CLIENT_SECRET);
 
@@ -31,6 +32,15 @@ router.post("/create-order", async (req, res) => {
                 },
             }
         );
+
+        const user = await User.findOne({
+            phone : customerPhone
+        })
+
+        user.orderId = response.data.order_id
+
+        await user.save()
+
         console.log(response.data)
         res.status(200).json( response.data );
     } catch (error) {
@@ -43,12 +53,18 @@ router.post("/create-order", async (req, res) => {
 });
 
 router.get('/verify-order/:id', async(req, res)=>{
-    try {
-        
+    try {        
         const  orderId  = req.params.id;
-
         const response = await cashfree.PGOrderFetchPayments(orderId)
         console.log('Order fetched successfully:', response.data);
+
+        const user = await User.findOne({
+            orderId : orderId
+        })
+
+        user.status = "paid"
+        await user.save()
+
         res.status(200).json( response.data );
     } catch (error) {
         console.error("Error creating order:", error.response?.data || error.message);

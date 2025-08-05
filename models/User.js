@@ -16,6 +16,7 @@ const userSchema = new mongoose.Schema({
   testScore: { type: Number, default: 0 },
 
   // Payment Info
+  orderId : String,
   isPaid: { type: Boolean, default: false },
   paymentId: { type: String }, // Razorpay/Instamojo txn ID
   paymentDate: { type: Date },
