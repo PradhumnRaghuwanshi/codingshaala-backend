@@ -19,7 +19,7 @@ router.post("/create-order", async (req, res) => {
                     customer_phone: customerPhone,
                 },
                 order_meta: {
-                    return_url: `https://codingshaala.com/payment-success?orderId=${customerId}`,
+                    return_url: `https://codingshaala.com/payment-status?orderId=${customerId}`,
                 },
             },
             {
