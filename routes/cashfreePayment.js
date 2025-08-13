@@ -14,7 +14,7 @@ router.post("/create-order", async (req, res) => {
             "https://api.cashfree.com/pg/orders",
             {
                 order_currency: "INR",
-                order_amount: amount,
+                order_amount: 2499,
                 customer_details: {
                     customer_id: customerId,
                     customer_phone: customerPhone,
