@@ -14,7 +14,7 @@ router.post("/create-order", async (req, res) => {
             "https://api.cashfree.com/pg/orders",
             {
                 order_currency: "INR",
-                order_amount: 2499,
+                order_amount: 1,
                 customer_details: {
                     customer_id: customerId,
                     customer_phone: customerPhone,
@@ -33,14 +33,20 @@ router.post("/create-order", async (req, res) => {
             }
         );
 
-
+        
         const user = await User.findOne({
             phone: customerPhone
         })
 
-        user.orderId = response.data.order_id
-
-        await user.save()
+        if(!user){
+            const newUser = new User(req.body)
+            newUser.orderId = response.data.order_id
+            await newUser.save()
+        } else {
+            user.orderId = response.data.order_id
+            user.orderId = response.data.order_id
+            await user.save()
+        }
 
         console.log(response.data)
         res.status(200).json(response.data);
