@@ -75,11 +75,12 @@ router.get('/verify-order/:id', async (req, res) => {
             ).length > 0
         ) {
            user.status = "paid"
+           await user.save()
         }
         
 
         
-        await user.save()
+        
 
         res.status(200).json(response.data);
     } catch (error) {
