@@ -63,7 +63,7 @@ router.get('/verify-order/:id', async (req, res) => {
     try {
         const orderId = req.params.id;
         console.log(orderId)
-        const response = await cashfree.PGOrderFetchPayments(orderId)
+        const response = await cashfree.PGOrderFetch(orderId)
         console.log('Order fetched successfully:', response.data);
         const getOrderResponse = response.data;
         const user = await User.findOne({
