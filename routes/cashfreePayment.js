@@ -14,7 +14,7 @@ router.post("/create-order", async (req, res) => {
             "https://api.cashfree.com/pg/orders",
             {
                 order_currency: "INR",
-                order_amount: 1,
+                order_amount: 2499,
                 customer_details: {
                     customer_id: customerId,
                     customer_phone: customerPhone,
@@ -63,7 +63,7 @@ router.get('/verify-order/:id', async (req, res) => {
     try {
         const orderId = req.params.id;
         console.log(orderId)
-        const response = await cashfree.PGOrderFetch(orderId)
+        const response = await cashfree.PGOrderFetchPayments(orderId)
         console.log('Order fetched successfully:', response.data);
         const getOrderResponse = response.data;
         const user = await User.findOne({
