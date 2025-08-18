@@ -62,6 +62,7 @@ router.post("/create-order", async (req, res) => {
 router.get('/verify-order/:id', async (req, res) => {
     try {
         const orderId = req.params.id;
+        console.log(orderId)
         const response = await cashfree.PGOrderFetchPayments(orderId)
         console.log('Order fetched successfully:', response.data);
         const getOrderResponse = response.data;
@@ -77,10 +78,6 @@ router.get('/verify-order/:id', async (req, res) => {
            user.status = "paid"
            await user.save()
         }
-        
-
-        
-        
 
         res.status(200).json(response.data);
     } catch (error) {
