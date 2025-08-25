@@ -36,15 +36,14 @@ exports.loginUser = async (req, res) => {
     const user = await User.findOne({ phone });
     if (!user) return res.status(401).json({ message: "Invalid credentials" });
 
-    const isMatch = await bcrypt.compare(password, user.password);
-    if (!isMatch) return res.status(401).json({ message: "Invalid credentials" });
-
-    const token = jwt.sign({ id: user._id }, JWT_SECRET, { expiresIn: "1d" });
-
-    res.json({
-      token,
+    if(user.password == password){
+      res.json({
       user: user,
     });
+    } else {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
+    
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
