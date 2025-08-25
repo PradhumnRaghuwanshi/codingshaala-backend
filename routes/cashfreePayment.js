@@ -6,6 +6,18 @@ const User = require("../models/User");
 const cashfree = new Cashfree(CFEnvironment.PRODUCTION, process.env.CASHFREE_CLIENT_ID, process.env.CASHFREE_CLIENT_SECRET);
 
 const router = express.Router();
+
+function generatePassword(fullName, phoneNumber) {
+    // Take the first word from the full name and make it lowercase
+    const firstName = fullName.split(" ")[0].toLowerCase();
+
+    // Take the last 2 digits of phone number
+    const lastTwoDigits = phoneNumber.slice(-2);
+
+    // Combine them
+    return firstName + lastTwoDigits;
+}
+
 router.post("/create-order", async (req, res) => {
     try {
 
@@ -33,14 +45,16 @@ router.post("/create-order", async (req, res) => {
             }
         );
 
-        
+
         const user = await User.findOne({
             phone: customerPhone
         })
 
-        if(!user){
+        if (!user) {
             const newUser = new User(req.body)
             newUser.orderId = response.data.order_id
+            const password = generatePassword(req.body.name, req.body.phone);
+            newUser.password = password
             await newUser.save()
         } else {
             user.orderId = response.data.order_id
@@ -75,8 +89,8 @@ router.get('/verify-order/:id', async (req, res) => {
                 (transaction) => transaction.payment_status === "SUCCESS"
             ).length > 0
         ) {
-           user.status = "paid"
-           await user.save()
+            user.status = "paid"
+            await user.save()
         }
 
         res.status(200).json(response.data);
