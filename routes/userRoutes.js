@@ -18,7 +18,7 @@ router.get('/:id', async (req, res) => {
     const user = await User.findById(req.params.id)
       .populate({
         path: 'assignedProgram',   // field in User schema pointing to Program
-        select: 'name duration startDate endDate', // fields you want to include
+        select: 'name duration startDate endDate totalClasses classTime completedClass', // fields you want to include
       });
 
     if (!user) {
