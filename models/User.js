@@ -11,14 +11,12 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "InternshipProgram",
   },
-
-  // Status Tracking
   status: {
     type: String,
-    enum: ["new", "test_passed", "paid", "in_progress", "completed", "test_failed"],
-    default: "new",
+    enum: ["enrolled", "assigned", "completed"],
+    default: "enrolled",
   },
-  testScore: { type: Number, default: 0 },
+
 
   // Payment Info
   orderId : String,
