@@ -16,7 +16,7 @@ const userSchema = new mongoose.Schema({
     enum: ["enrolled", "assigned", "completed"],
     default: "enrolled",
   },
-  
+  classesCompleted: { type: Number, default: 0 },
 
 
   // Payment Info

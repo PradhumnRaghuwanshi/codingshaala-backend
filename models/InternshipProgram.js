@@ -45,6 +45,10 @@ const InternshipProgramSchema = new mongoose.Schema(
       type: [String],
       default: [],
     },
+    completedClass : {
+      type : Number,
+      default : 0
+    }
   },
   { timestamps: true }
 );

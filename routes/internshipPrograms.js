@@ -61,4 +61,18 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+router.put('/:id/update-classes', async (req, res) => {
+  const { completedClass } = req.body;
+  try {
+    const program = await Program.findByIdAndUpdate(
+      req.params.id,
+      { completedClass },
+    );
+    res.json(program);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ message: "Failed to update classes" });
+  }
+});
+
 module.exports = router;
