@@ -27,7 +27,7 @@ router.put("/:id/assign", async (req, res) => {
 
     const student = await User.findByIdAndUpdate(
       req.params.id,
-      { status: "assigned", assignedProgram: program._id }
+      { status: "assigned", assignedProgram: programId }
     )
 
     if (!student) return res.status(404).json({ message: "Student not found" });
