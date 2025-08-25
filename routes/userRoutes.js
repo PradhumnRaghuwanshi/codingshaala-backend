@@ -12,10 +12,25 @@ router.get("/all-users", async (req, res) => {
   const allUsers = await User.find();
   res.json(allUsers);
 });
-router.get('/:id', async(req, res)=>{
-  const user = await User.findById(req.params.id)
-  res.json(user)
-})
+router.get('/:id', async (req, res) => {
+  try {
+    // Find the user by ID and populate the assigned program if it exists
+    const user = await User.findById(req.params.id)
+      .populate({
+        path: 'assignedProgram',   // field in User schema pointing to Program
+        select: 'name duration startDate endDate', // fields you want to include
+      });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    res.json(user);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
 router.put("/update-user/:id", async (req, res) => {
   const user = await User.findByIdAndUpdate(req.params.id, req.body);
   res.json(user);
