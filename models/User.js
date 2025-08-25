@@ -11,11 +11,6 @@ const userSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "InternshipProgram",
   },
-  status: {
-    type: String,
-    enum: ["enrolled", "assigned", "completed"],
-    default: "enrolled",
-  },
 
   // Status Tracking
   status: {
