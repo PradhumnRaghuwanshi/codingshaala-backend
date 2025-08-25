@@ -7,6 +7,16 @@ const userSchema = new mongoose.Schema({
   phone: { type: String },
   password: { type: String },
 
+  assignedProgram: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "InternshipProgram",
+  },
+  status: {
+    type: String,
+    enum: ["enrolled", "assigned", "completed"],
+    default: "enrolled",
+  },
+
   // Status Tracking
   status: {
     type: String,
