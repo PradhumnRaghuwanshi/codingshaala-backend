@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const { createUser, loginUser } = require("../controllers/userController"); // <-- fixed
 const User = require("../models/User");
+const InternshipProgram = require("../models/InternshipProgram");
+
 
 router.post("/add-user", createUser);
 router.post("/login", loginUser);
