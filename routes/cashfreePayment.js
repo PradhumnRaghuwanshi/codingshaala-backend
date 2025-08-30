@@ -22,6 +22,7 @@ router.post("/create-order", async (req, res) => {
     try {
 
         const { amount, customerId, customerPhone } = req.body;
+        console.log(amount)
         const response = await axios.post(
             "https://api.cashfree.com/pg/orders",
             {
